@@ -4,12 +4,6 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
-
-import six
-import sys
-sys.modules['sklearn.externals.six'] = six
-import mlrose
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -51,11 +45,6 @@ class Model:
                 model = KNeighborsClassifier(**kwargs)
                 self.model_type = 'KNN'
 
-            case 'mnn':
-                model = mlrose.NeuralNetwork(**kwargs)
-                #model = mlrose.NeuralNetwork(hidden_nodes=[100,100], algorithm="gradient_descent", learning_rate=1e-2, activation="relu", random_state=100)
-                self.model_type = 'Melrose Neural Network'
-
         self.model = model
 
         return model
@@ -79,8 +68,7 @@ class Model:
         plt.legend(('Training Accuracy', 'CV Accuracy'))
         plt.xlabel('Training Samples')
         plt.ylabel('Accuracy Score')
-        plt.title(f"Learning Curve for {self.model_type} - SA")
-        plt.savefig('sa_learning_curve.jpg')
+        plt.title(f"Learning Curve for {self.model_type}")
         plt.show()
         plt.clf()
         plt.cla()
